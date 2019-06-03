@@ -186,16 +186,16 @@ Il est donc nécessaire de conserver les différents états renommés tant qu'il
 J'ai donc étudié \emph{RenamableLogootSplit} pour identifier les conditions nécessaires pour pouvoir supprimer définitivement les états renommés et concevoir un mécanisme de \emph{garbage collection} adapté.
 \\
 
-Avec l'aide d'un ingénieur de notre équipe, nous sommes en train de mettre en place plusieurs expériences pour valider cette contribution.
-La première expérience consiste à simuler une collaboration à grande échelle à l'aide de bots.
+Avec l'aide d'un ingénieur de notre équipe, nous sommes en train de mettre en place plusieurs expériences pour valider cette contribution et la comparer à l'existant.
+La première expérience a été conçue pour pouvoir simuler une collaboration à grande échelle à l'aide de bots, en utilisant soit \emph{LogootSplit}, soit \emph{RenamableLogootSplit}.
 Les objectifs de cette expérience sont multiples.
-Tout d'abord, elle nous permet d'éprouver le bon fonctionnement de l'application en vérifiant que les différents noeuds convergent à terme.
+Tout d'abord, elle nous permet d'éprouver le bon fonctionnement de l'application en vérifiant que les différents noeuds convergent bel et bien à terme.
 Nous utilisons aussi cette expérience pour générer et collecter un grand nombre d'états différents, qu'ils s'agissent d'états intermédiaires ou finaux.
 Ces états sont utilisés dans le cadre d'une seconde expérience pour mesurer la consommation en mémoire du \emph{CRDT}, mais aussi le temps d'intégration des modifications.
-Ceci nous permet de suivre l'évolution de ces données au fur et à mesure de la progression de la collaboration.
+Ceci nous permet de suivre et de comparer l'évolution de ces données au fur et à mesure de la progression de la collaboration pour chaque \ac{CRDT}.
 \\
 
-Finallement, afin de présenter cette contribution à la communauté scientifique, je rédige actuellement un article décrivant son fonctionnement et comparant ses performances par rapport à l'existant.\\
+Finalement, afin de présenter cette contribution à la communauté scientifique, je rédige actuellement un article décrivant son fonctionnement et comparant ses performances par rapport à l'existant.\\
 
 \noindent\textbf{Plan for next year:}
 \commentaire{%
@@ -216,8 +216,6 @@ Ces fonctions étant critiques pour le bon fonctionnement du système, je souhai
 
 Concernant la suite de mes travaux, j'étudie actuellement la littérature sur les \acp{CRDT} pour identifier d'autres structures de données qui bénéficieraient d'une adaptation du mécanisme de renommage proposé pour \emph{LogootSplit} ou, le cas échéant, pour identifier d'autres problématiques de recherche liées à l'utilisation des \acp{CRDT} dans les systèmes distribués.
 \\
-
-\clearpage
 
 \noindent\textbf{Publications:}
 \commentaire{%
