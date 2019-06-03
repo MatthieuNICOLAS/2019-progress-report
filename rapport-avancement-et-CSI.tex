@@ -115,7 +115,7 @@ Contrat doctoral
 % To do so, they embed in their specification a conflict-resolution mechanism.
 % \acp{CRDT} are particularly suited to build highly available distributed systems in which nodes replicate and may edit the same data without any coordination.\\
 Dans le cadre de ma thèse, j'étudie et travaille sur les \acfp{CRDT}.
-Les \acp{CRDT} sont de nouvelles spécifications des types abstraits de données, tels que l'Ensemble et la Séquence.
+Les \acp{CRDT} sont de nouvelles spécifications des types abstraits de données, tels que l'\emph{Ensemble} ou la \emph{Séquence}.
 Contrairement aux spécifications traditionnelles, les \acp{CRDT} sont conçus pour supporter nativement les modifications concurrentes.
 Pour ce faire, ces structures de données intègrent un mécanisme de résolution de conflits directement au sein de leur spécification.
 Cette spécificité rend les \acp{CRDT} particulièrement adaptés pour concevoir des systèmes distribués hautement disponibles dans lesquels différents noeuds répliquent et modifient une même donnée sans aucune coordination.
@@ -140,10 +140,11 @@ La taille des identifiants croît alors continuellement avec le nombre de modifi
 % A second approach is to study this issue as a particular case of the renaming problem
 % and to propose mechanisms to rename identifiers in order to reduce their size,
 % still without requiring any kind of agreement between nodes
-Ces identifiants représentent donc le surcoût de l'utilisation des \acp{CRDT} par rapport aux structures de données traditionnelles.
+Ces identifiants représentent donc un surcoût lié à l'utilisation des \acp{CRDT} par rapport aux structures de données traditionnelles.
 Ce surcoût, parfois non-borné, peut décourager l'adoption des \acp{CRDT} par les systèmes distribués.
-Le but de cette thèse est donc de proposer des solutions pour pallier à ce problème.
-Une approche possible est d'étudier ce sujet comme étant un cas particulier du problème du renommage et de proposer un mécanisme permettant de renommer les identifiants pour réduire leur taille, tout en ne nécessitant aucune coordination entre les différents noeuds.
+Le but de cette thèse est de proposer des solutions pour pallier à ce problème.
+Une approche possible est d'étudier ce sujet comme étant un cas particulier du problème du renommage.
+Il convient alors de proposer un mécanisme permettant de renommer les identifiants pour réduire leur taille, sans introduire la nécessité d'une coordination entre les différents noeuds.
 \\
 
 \noindent\textbf{Main results of the year:}
@@ -152,7 +153,7 @@ Une approche possible est d'étudier ce sujet comme étant un cas particulier du
   objectives of the thesis; difficulties encountered}
 
 \paragraph{\small Travaux précédents.}
-Au cours de la 1ère année, j'ai étudié principalement un \ac{CRDT} donné, \emph{LogootSplit}.
+Au cours de ma 1ère année, j'ai étudié principalement un \ac{CRDT} donné, \emph{LogootSplit}.
 Ce \ac{CRDT} permet de représenter une séquence répliquée et est notamment utilisé dans des applications d'édition collaborative.
 \emph{LogootSplit} souffre particulièrement du problème de croissance non-bornée des identifiants qu'il utilise.
 \\
@@ -190,11 +191,11 @@ La première expérience consiste à simuler une collaboration à grande échell
 Les objectifs de cette expérience sont multiples.
 Tout d'abord, elle nous permet d'éprouver le bon fonctionnement de l'application en vérifiant que les différents noeuds convergent à terme.
 Nous utilisons aussi cette expérience pour générer et collecter un grand nombre d'états différents, qu'ils s'agissent d'états intermédiaires ou finaux.
-Ces états sont utilisés dans le cadre d'une seconde expérience pour mesurer la consommation en mémoire du \emph{CRDT}, mais aussi le temps d'intégration des modifications
+Ces états sont utilisés dans le cadre d'une seconde expérience pour mesurer la consommation en mémoire du \emph{CRDT}, mais aussi le temps d'intégration des modifications.
 Ceci nous permet de suivre l'évolution de ces données au fur et à mesure de la progression de la collaboration.
 \\
 
-Afin de présenter cette contribution à la communauté des \emph{CRDT}, je rédige actuellement un article scientifique.\\
+Afin de présenter cette contribution à la communauté des \acp{CRDT}, je rédige actuellement un article scientifique décrivant son fonctionnement et comparant ses performances par rapport à l'existant.\\
 
 \noindent\textbf{Plan for next year:}
 \commentaire{%
