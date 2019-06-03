@@ -1,0 +1,342 @@
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+
+\usepackage{acronym} % \ac[p], \acl[p], \acs[p], \acf[p]
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{} % Remove auto-generated "References" by \bibliography
+\usepackage{hyperref}
+
+% Acronyms
+% --------
+\acrodef{CRDT}[CRDT]{Conflict-free Replicated Data Type}
+\acrodefplural{CRDT}[CRDTs]{Conflict-free Replicated Data Types}
+\acrodef{Loria}{Lorraine Research Laboratory in Computer Science and its Applications}
+\acrodef{OT}{Operational Transformation}
+
+\usepackage{xcolor}
+\topmargin -20 mm
+\oddsidemargin -10 mm      %   Left margin on odd-numbered pages.
+\evensidemargin \oddsidemargin    %   Left margin on even-numbered pages.
+%\marginparwidth 5 mm       %   Width of marginal notes.
+\textwidth 170 mm % Width of text line.
+\textheight 235 mm % Height of text page.
+
+
+\parindent 0mm
+
+\newcommand{\commentaire}[1]{\small\textit{#1}}
+
+\begin{document}
+\fbox{\LARGE Ecole Doctorale IAEM -- Commission de mention informatique}
+
+\bigskip
+
+\centerline{\Large\textbf{Progress Report and CSI Report -- 2018-19}}
+\bigskip
+\bigskip
+
+\commentaire{%
+This report contains 4 parts to be filled in French or English:\\
+  -- an administrative form, to be filled by the PhD student\\
+  -- the progress report of the PhD thesis, to be filled by the PhD
+  student\\
+  -- the conclusion of the supervisors\\
+  -- the report of the Comit\'e de Suivi Individuel (CSI), to be
+  filled by the CSI\\}
+
+\commentaire{%
+For the 4th part, the PhD student must plan a meeting with the
+“r\'ef\'erent scientifique” (first member of his/her CSI) in May. The
+goal of this meeting is to discuss the progress of the
+thesis. Prior to this meeting, the other parts must be filled and
+the full document e-mailed to the r\'ef\'erent scientifique.\\}
+
+\commentaire{%
+At the end of this meeting, the report is to be signed by both
+members of the CSI, and sent by the CSI to the PhD student, the
+supervisors and the CMI Doctoral school
+(francoise.laurent@loria.fr). It is then to be uploaded by the PhD
+student to her/his ADUM profile.\\}
+
+\commentaire{%
+\textcolor{red}{In order to facilitate the process, the different parts can be
+prepared and signed (electronically) as separate documents, but
+they must be merged again as a single pdf file for uploading to
+ADUM.}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bigskip
+\hrule
+
+\section*{\fbox{Administrative information} \textit{\small (to be filled by the PhD student)}}
+
+\noindent\textbf{PhD student:}
+Matthieu Nicolas
+\\
+\noindent\textbf{Current PhD year in 2018-19:}
+2A
+\\
+\noindent\textbf{Laboratory:}
+Loria
+\\
+\noindent\textbf{Supervisor(s):}
+Olivier Perrin et Gérald Oster
+\\
+\noindent\textbf{Title of the PhD thesis:}
+Efficient (re)naming in \acp{CRDT}
+\\
+\noindent\textbf{Fundings for the PhD thesis:}
+Contrat doctoral
+\\
+
+\noindent\textbf{Members of the CSI:}
+\begin{itemize}
+\item\textbf{scientific member:}
+  Stephan Merz
+\item\textbf{auxiliary member:}
+  Ye-Qiong Song
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{\fbox{Progress report} \textit{\small (to be filled by the PhD student)}}
+
+\noindent\textbf{Short description of the subject:}
+\commentaire{%
+  general context, considered approach, scientific objectives
+  compared to the state of the art\\}
+
+% In the scope of my PhD, I am studying and working on \acp{CRDT} \cite{shapiro_2011_crdt, DBLP:journals/corr/abs-1710-04469}.
+% \acp{CRDT} are data types which behave as traditional ones, e.g. the Set or the Sequence.
+% However, compared to traditional data types, they are designed to support natively concurrent modifications.
+% To do so, they embed in their specification a conflict-resolution mechanism.
+% \acp{CRDT} are particularly suited to build highly available distributed systems in which nodes replicate and may edit the same data without any coordination.\\
+Dans le cadre de ma thèse, j'étudie et travaille sur les \acfp{CRDT}.
+Les \acp{CRDT} sont de nouvelles spécifications des types abstraits de données, tels que l'Ensemble et la Séquence.
+Contrairement aux spécifications traditionnelles, les \acp{CRDT} sont conçus pour supporter nativement les modifications concurrentes.
+Pour ce faire, ces structures de données intègrent un mécanisme de résolution de conflits directement au sein de leur spécification.
+Cette spécificité rend les \acp{CRDT} particulièrement adaptés pour concevoir des systèmes distribués hautement disponibles dans lesquels différents noeuds répliquent et modifient une même donnée sans aucune coordination.
+\\
+
+% To resolve conflicts in a deterministic manner, \acp{CRDT} usually attach identifiers to elements stored in the data structure.
+% Compared to its non-replicated counterpart, these identifiers represent an overhead of the replicated data structure.
+% According to the kind of \ac{CRDT}, identifiers have to comply with several constraints such as uniqueness or being densely totally ordered.
+% In some cases, these constraints prevent the identifiers' size from being bounded.
+% As the number of the updates increases, the size of identifiers grows \cite{AndreCollaborateCom2013}.
+% This leads to performance issues, as the efficiency of the replicated data structure decreases over time.
+Pour résoudre les conflits de manière déterministe, les \acp{CRDT} utilisent généralement des identifiants qu'ils associent aux éléments stockés au sein de la structure de données.
+Cependant, selon le type de \ac{CRDT}, les identifiants doivent respecter un ensemble de contraintes telles qu'être unique ou appartenir à un espace dense.
+Dans certains cas, ces contraintes empêchent de borner la taille des identifiants.
+La taille des identifiants croît alors continuellement avec le nombre de modifications effectuées.
+\\
+
+% This PhD aims to address this issue.
+% A first approach is to study identifiers proposed in the literature to list existing constraints on
+% identifiers and their consequences on identifiers generation
+% in order to propose more efficient specifications of identifiers.
+% A second approach is to study this issue as a particular case of the renaming problem
+% and to propose mechanisms to rename identifiers in order to reduce their size,
+% still without requiring any kind of agreement between nodes
+Ces identifiants représentent donc le surcoût de l'utilisation des \acp{CRDT} par rapport aux structures de données traditionnelles.
+Ce surcoût, parfois non-borné, peut décourager l'adoption des \acp{CRDT} par les systèmes distribués.
+Le but de cette thèse est donc de proposer des solutions pour pallier à ce problème.
+Une approche possible est d'étudier ce sujet comme étant un cas particulier du problème du renommage et de proposer un mécanisme permettant de renommer les identifiants pour réduire leur taille, tout en ne nécessitant aucune coordination entre les différents noeuds.
+\\
+
+\noindent\textbf{Main results of the year:}
+\commentaire{%
+  studies and works achieved, results obtained with respect to the
+  objectives of the thesis; difficulties encountered}
+
+\paragraph{\small Travaux précédents.}
+Au cours de la 1ère année, j'ai étudié principalement un \ac{CRDT} donné, \emph{LogootSplit}.
+Ce \ac{CRDT} permet de représenter une séquence répliquée et est notamment utilisé dans des applications d'édition collaborative.
+\emph{LogootSplit} souffre particulièrement du problème de croissance non-bornée des identifiants qu'il utilise.
+\\
+
+Afin d'adresser ce problème, j'ai proposé une première version d'un nouveau \ac{CRDT}, \emph{RenamableLogootSplit}.
+Ce \ac{CRDT} associe \emph{LogootSplit} à un mécanisme de renommage.
+Ce mécanisme vise à réduire le surcoût de \emph{LogootSplit} en réallouant ponctuellement des identifiants plus petits à l'ensemble des éléments stockés au sein de la séquence.
+Pour gérer les modifications concurrentes à un renommage, \emph{RenamableLogootSplit} utilise des fonctions de transformation.
+Ces fonctions permettent de transformer les modifications avant de les appliquer à la copie locale pour prendre en compte l'effet du renommage.
+\\
+
+Cette première version était néanmoins incomplète: elle n'était pas capable d'intégrer des renommages concurrents.
+Pour l'utiliser en état, il était donc nécessaire d'empêcher des renommages concurrents d'être générés, notamment en reposant sur un mécanisme de coordination.
+Les mécanismes de coordination étant coûteux et peu adaptés aux systèmes dynamiques, il s'agissait du défaut principal de ce prototype.
+
+\paragraph{\small Travaux en cours.}
+Cette année, j'ai poursuivi mes travaux sur \emph{RenamableLogootSplit} en concevant et implémentant une nouvelle version de ce dernier.
+La principale évolution de cette nouvelle version est la capacité de gérer des renommages concurrents.
+Pour cela, \emph{RenamableLogootSplit} établit un ordre de priorité entre des renommages concurrents.
+En se basant sur cet ordre, \emph{RenamableLogootSplit} n'applique en finalité qu'un seul renommage d'un ensemble de renommages concurrents.
+De nouvelles fonctions de transformation permettent d'annuler l'effet d'un renommage précédemment appliqué, s'il s'avère finalement qu'il existe un renommage concurrent prioritaire.
+\\
+
+% J'ai pu présenté cette nouvelle version de \emph{RenamableLogootSplit} dans le cadre du symposium doctoral et de la session de posters de la conférence Middleware 2018.
+% \\
+
+Cette solution présente toutefois un défaut.
+Afin que les différentes fonctions de transformation soient déterministes, elles reposent sur l'état sur lequel s'est appliqué le renommage à prendre en compte ou à annuler pour décider de la transformation à effectuer.
+Il est donc nécessaire de conserver les différents états renommés tant qu'ils peuvent être requis pour transformer une modification concurrente ou qu'un renommage concurrent prioritaire peut être reçu.
+J'ai donc étudié \emph{RenamableLogootSplit} pour identifier les conditions nécessaires pour pouvoir supprimer définitivement les états renommés et concevoir un mécanisme de \emph{garbage collection} adapté.
+\\
+
+Avec l'aide d'un ingénieur de notre équipe, nous sommes en train de mettre en place plusieurs expériences pour valider cette contribution.
+La première expérience consiste à simuler une collaboration à grande échelle à l'aide de bots.
+Les objectifs de cette expérience sont multiples.
+Tout d'abord, elle nous permet d'éprouver le bon fonctionnement de l'application en vérifiant que les différents noeuds convergent à terme.
+Nous utilisons aussi cette expérience pour générer et collecter un grand nombre d'états différents, qu'ils s'agissent d'états intermédiaires ou finaux.
+Ces états sont utilisés dans le cadre d'une seconde expérience pour mesurer la consommation en mémoire du \emph{CRDT}, mais aussi le temps d'intégration des modifications
+Ceci nous permet de suivre l'évolution de ces données au fur et à mesure de la progression de la collaboration.
+\\
+
+Afin de présenter cette contribution à la communauté des \emph{CRDT}, je rédige actuellement un article scientifique.\\
+
+\noindent\textbf{Plan for next year:}
+\commentaire{%
+  remaining problems to be considered, approach; precise planning (in
+  particular for those who are at least in 3rd year, for the report
+  writing and the defense)\\}
+
+L'objectif de cette année est de finir la rédaction et de publier l'article présentant \emph{RenamableLogootSplit}.
+\\
+
+Afin de compléter la partie validation de cet article, nous allons poursuivre les expériences que nous menons pour effectuer des mesures de performances de \emph{RenamableLogootSplit} sur différents aspects: temps d'intégration du renommage, temps d'intégration des modifications concurrentes à un renommage, évolution de la mémoire utilisée par la structure de données...
+Ces mesures seront utilisées pour comparer les performances de \emph{RenamableLogootSplit} par rapport à l'existant.
+\\
+
+Pour garantir la convergence à terme des différents noeuds du système mais aussi pour garantir le respect de l'intention de l'utilisateur, les fonctions de transformation doivent vérifier plusieurs propriétés.
+Ces fonctions étant critiques pour la correction du système, je souhaite prouver formellement leur respect de ces propriétés.
+\\
+
+Concernant la suite de mes travaux, j'étudie actuellement la littérature sur les \acp{CRDT} pour identifier d'autres structures de données qui bénéficieraient d'une adaptation du mécanisme de renommage proposé pour \emph{LogootSplit} ou, le cas échéant, pour identifier d'autres problématiques de recherche liées à l'utilisation des \acp{CRDT} dans les systèmes distribués.
+\\
+
+\clearpage
+
+\noindent\textbf{Publications:}
+\commentaire{%
+  if any}
+\bibliographystyle{plain}
+\bibliography{publications}
+\nocite{*}
+
+\noindent\textbf{Project after the thesis:}
+\commentaire{%
+  for 3rd year (and beyond) PhD students: professional project\\}
+À définir.
+\\
+
+\noindent\textbf{Scientific and professional modules validated:}
+\commentaire{%
+  list of all modules validated from the beginning of the thesis (do
+  not forget to add them in Adum, together with your publications)}
+\subparagraph{Scientific modules}
+  \begin{itemize}
+      \item Réplication et cohérence des données
+      \item Participation à l'école d'été SATIS 2018
+  \end{itemize}
+\subparagraph{Professional modules}
+  \begin{itemize}
+      \item Fi4 152 E Sauveteur Secouriste du Travail (SST)
+      \item Fi4 162 C Formation à la communication orale et corporelle en milieu professionnel
+      \item Fi4 282 Outils numériques pour la pédagogie (plateforme Arche, studio professeur)
+      \item Fi4 305 Culture de l’intégrité scientifique
+      \item PA1.1 MDD 14 - Eléments d’innovations pédagogiques
+  \end{itemize}
+
+\noindent\textbf{Date and signature of the PhD student}
+
+..................................................
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{\fbox{Opinion of the supervisors} \textit{\small (to be filled by the supervisors)}}
+
+\noindent\textbf{Opinion on this progress report:}
+..................................................
+\\
+
+\noindent\textbf{Agreement for an additional year?}
+\commentaire{%
+  Yes/No (if No, please justify)\\}
+..................................................
+\\
+
+\noindent\textbf{Date of the defense:}
+\commentaire{%
+  this can be an approximation\\}
+..................................................
+\\
+
+
+\noindent\textbf{Date and signature of the PhD supervisors}
+
+..................................................
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{\fbox{Report of the Comit\'e de Suivi Individuel} \textit{\small (to be filled by the r\'ef\'erent scientifique)}}
+
+\commentaire{%
+  \textcolor{red}{The questions below are suggestions. For each
+    section, the report can be as short as “Yes” or more detailed
+    according to the feeling of the CSI.\\}}
+
+\noindent\textbf{Is the student confident with the PhD progression?}
+\commentaire{%
+  E.g.: How does the PhD student view the progress of
+  her/his thesis? How often does the student meet with her/his
+  supervisors? How is the student’s relationship with her/his
+  supervisors? In case of problems, does the student know who to
+  discuss these issues with?\\}
+..................................................
+\\
+
+\noindent\textbf{Is the PhD on good tracks?}
+\commentaire{%
+  E.g: Is the student comfortable with his/her thesis topic? Did
+  she/he embraced the subject? Do you have any comments or advice
+  concerning publications? Does the student have opportunities to
+  present her/his work? Do you have noteworthy concerns about the
+  progression of the thesis?\\}
+..................................................
+\\
+
+\noindent\textbf{Is the professional project sound?}
+\commentaire{%
+  E.g.: What is the professional project of the PhD student for after
+  the PhD? Is she/he aware of the various options and associated
+  expectations (postdoc abroad or in France, industrial R\&D,
+  application periods, teaching requirements, etc.)? Have contacts
+  been established? Do you have comments about the PhD student’s
+  plans for her/his training courses/schools?\\}
+..................................................
+\\
+
+\noindent\textbf{Conclusion:}
+No problem for an additional registration / Interview with the ED
+recommended
+
+\bigskip
+
+\noindent\textbf{Date:}
+..................................................
+\\
+
+\noindent\textbf{Signatures:}
+
+\begin{tabular}{p{5cm}p{12cm}}
+  PhD student & Two members of the CSI\\
+  ........................................
+  &
+  ........................................
+  ........................................
+\end{tabular}
+
+\end{document}
