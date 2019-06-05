@@ -27,7 +27,8 @@
 
 \parindent 0mm
 
-\newcommand{\commentaire}[1]{\small\textit{#1}}
+%\newcommand{\commentaire}[1]{\small\textit{#1}}
+\newcommand{\commentaire}[1]{}
 
 \begin{document}
 \fbox{\LARGE Ecole Doctorale IAEM -- Commission de mention informatique}
@@ -71,7 +72,8 @@ ADUM.}}
 \bigskip
 \hrule
 
-\section*{\fbox{Administrative information} \textit{\small (to be filled by the PhD student)}}
+\section*{\fbox{Administrative information}}
+% \textit{\small (to be filled by the PhD student)}}
 
 \noindent\textbf{PhD student:}
 Matthieu Nicolas
@@ -102,7 +104,8 @@ Contrat doctoral
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section*{\fbox{Progress report} \textit{\small (to be filled by the PhD student)}}
+\section*{\fbox{Progress report}}
+% \textit{\small (to be filled by the PhD student)}}
 
 \noindent\textbf{Short description of the subject:}
 \commentaire{%
@@ -255,7 +258,8 @@ Concernant la suite de mes travaux, j'étudie actuellement la littérature sur l
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section*{\fbox{Opinion of the supervisors} \textit{\small (to be filled by the supervisors)}}
+\section*{\fbox{Opinion of the supervisors}}
+% \textit{\small (to be filled by the supervisors)}}
 
 \noindent\textbf{Opinion on this progress report:}
 ..................................................
@@ -280,7 +284,8 @@ Concernant la suite de mes travaux, j'étudie actuellement la littérature sur l
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section*{\fbox{Report of the Comit\'e de Suivi Individuel} \textit{\small (to be filled by the r\'ef\'erent scientifique)}}
+\section*{\fbox{Report of the Comit\'e de Suivi Individuel}}
+% \textit{\small (to be filled by the r\'ef\'erent scientifique)}}
 
 \commentaire{%
   \textcolor{red}{The questions below are suggestions. For each
@@ -294,9 +299,18 @@ Concernant la suite de mes travaux, j'étudie actuellement la littérature sur l
   supervisors? How is the student’s relationship with her/his
   supervisors? In case of problems, does the student know who to
   discuss these issues with?\\}
-..................................................
-\\
 
+Partiellement: les travaux sur la conception d'un algorithme de renommage pour la
+structure de données \emph{LogootSplit}, utilisée dans le cadre de l'édition
+collaborative, a pris plus de temps que prévu, en particulier pour gérer des
+renommages concurrents dans un système totalement non coordonné. Cet algorithme
+a été présenté lors du symposium doctoral associé à la conférence
+\emph{Middleware 2018} mais n'a pas encore été publié formellement. Matthieu se
+pose quelques questions~: comment valoriser ce résultat au mieux, comment le
+généraliser à d'autres structures de données et plus généralement sur la suite
+de la thèse.
+
+\medskip
 \noindent\textbf{Is the PhD on good tracks?}
 \commentaire{%
   E.g: Is the student comfortable with his/her thesis topic? Did
@@ -304,9 +318,30 @@ Concernant la suite de mes travaux, j'étudie actuellement la littérature sur l
   concerning publications? Does the student have opportunities to
   present her/his work? Do you have noteworthy concerns about the
   progression of the thesis?\\}
-..................................................
-\\
 
+Le travail accompli me semble être substantiel. Matthieu a fait deux
+contributions~: d'abord l'algorithme de renommage pour rendre plus compacte la
+structure de données représentant un document partagé suite à ses modifications
+par des utilisateurs distribués, puis la gestion de renommages concurrents sans
+coordinateur. La première contribution devrait intéresser toute la communauté
+car elle semble répondre à un défi de performance (des évaluations plus poussées
+de performance sont en préparation). L'intérêt de la deuxième contribution est
+peut-être plus académique mais le défi algorithmique est réel. Un (ou deux)
+article(s) décrivant ces contributions devraient être soumis sans tarder.
+
+Pour la suite de la thèse, il semble être envisagé d'ouvrir un nouvel axe de
+recherche afin d'élargir le travail sur les CRDT et d'en trouver d'autres
+applications. Cela est probablement une bonne idée afin de ne pas rester
+braqué sur un algorithme particulier. Je recommande en conséquence de boucler
+rapidement les travaux sur \emph{RenamableLogootSplit} -- en particulier en ce
+qui concerne l'étude de performance. L'idée d'une preuve formelle
+de l'algorithme devrait être abandonnée et un projet concret pour ce nouvel axe
+devrait être élaboré avant l'été.
+
+Dans tous les cas, une soutenance à la fin de la 3ème année paraît peu réaliste,
+et Matthieu en est d'accord.
+
+\medskip
 \noindent\textbf{Is the professional project sound?}
 \commentaire{%
   E.g.: What is the professional project of the PhD student for after
@@ -315,23 +350,27 @@ Concernant la suite de mes travaux, j'étudie actuellement la littérature sur l
   application periods, teaching requirements, etc.)? Have contacts
   been established? Do you have comments about the PhD student’s
   plans for her/his training courses/schools?\\}
-..................................................
-\\
 
+Le projet professionnel reste encore flou: Matthieu semble s'orienter plutôt
+vers une carrière dans l'industrie après avoir été attiré par une carrière
+académique dans un premier temps.
+
+\medskip
 \noindent\textbf{Conclusion:}
-No problem for an additional registration / Interview with the ED
-recommended
+
+Je ne vois pas de problème pour une réinscription en 3A et j'encourage les
+parties prenantes à définir des objectifs réalistes pour la suite de la thèse.
 
 \bigskip
 
 \noindent\textbf{Date:}
-..................................................
+4 juin 2019
 \\
 
 \noindent\textbf{Signatures:}
 
-\begin{tabular}{p{5cm}p{12cm}}
-  PhD student & Two members of the CSI\\
+\begin{tabular}{@{}p{5cm}p{12cm}}
+  PhD student & Two members of the CSI\\[2ex]
   ........................................
   &
   ........................................
