@@ -144,8 +144,8 @@ La taille des identifiants croît alors continuellement avec le nombre de modifi
 % and to propose mechanisms to rename identifiers in order to reduce their size,
 % still without requiring any kind of agreement between nodes
 Ces identifiants représentent donc un surcoût lié à l'utilisation des \acp{CRDT} par rapport aux structures de données traditionnelles.
-Ce surcoût, parfois non-borné, peut décourager l'adoption des \acp{CRDT} par les systèmes distribués.
-Le but de cette thèse est de proposer des solutions pour pallier à ce problème.
+Ce surcoût, parfois non-borné, peut décourager l'adoption des \acp{CRDT} dans les systèmes distribués.
+Le but de cette thèse est de proposer des solutions pour pallier ce problème.
 Une approche possible est d'étudier ce sujet comme étant un cas particulier du problème du renommage.
 Il convient alors de proposer un mécanisme permettant de renommer les identifiants pour réduire leur taille, sans introduire la nécessité d'une coordination entre les différents noeuds.
 \\
@@ -169,14 +169,17 @@ Ces fonctions permettent de transformer les modifications avant de les appliquer
 \\
 
 Cette première version était néanmoins incomplète: elle n'était pas capable d'intégrer des renommages concurrents.
-Pour l'utiliser en état, il était donc nécessaire d'empêcher des renommages concurrents d'être générés, notamment en reposant sur un mécanisme de coordination.
+Pour l'utiliser en l'état, il était donc nécessaire d'empêcher des renommages concurrents d'être générés, notamment en reposant sur un mécanisme de coordination.
 Les mécanismes de coordination étant coûteux et peu adaptés aux systèmes dynamiques, il s'agissait du défaut principal de ce prototype.
 
 \paragraph{\small Travaux en cours.}
 Cette année, j'ai poursuivi mes travaux sur \emph{RenamableLogootSplit} en concevant et implémentant une nouvelle version de ce dernier.
 La principale évolution de cette nouvelle version est la capacité de gérer des renommages concurrents.
 Pour cela, \emph{RenamableLogootSplit} établit un ordre de priorité entre des renommages concurrents.
-En se basant sur cet ordre, \emph{RenamableLogootSplit} n'applique en finalité qu'un seul renommage d'un ensemble de renommages concurrents.
+Pour déterminer la priorité d'un renommage par rapport à un autre, différentes méthodes sont possibles.
+Par exemple, nous pouvons établir un ordre entre deux renommages en comparant leur couple $\langle identifiant\ de\ l'auteur, valeur\ courante\ de\ l'horloge\ logique\rangle$ respectif.
+Une autre approche possible pour créer un ordre repose sur l'utilisation de métriques telles que la taille du document renommé ou le nombre de modifications effectuées précédemment.
+En se basant sur l'ordre établi, \emph{RenamableLogootSplit} n'applique en finalité qu'un seul renommage d'un ensemble de renommages concurrents.
 De nouvelles fonctions de transformation permettent d'annuler l'effet d'un renommage précédemment appliqué, s'il s'avère finalement qu'il existe un renommage concurrent prioritaire.
 \\
 
